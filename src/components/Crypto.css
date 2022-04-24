@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;;
+  background-color: #282a36;
+  color: #fff;
+}
+
+.cryptoDetails {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  margin: 30px auto 20px auto;
+  max-width: 800px;
+  color: #fff;
+}
+
+td * {
+      vertical-align: bottom;
+  }
+
+img {
+    margin-right: 15px;
+} 
