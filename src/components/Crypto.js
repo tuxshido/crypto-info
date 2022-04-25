@@ -1,15 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import HistoryChart from "./HistoryChart";
 import "./Crypto.css";
 //import { Link } from "react-router-dom";
 
 function Crypto() {
     const { id } = useParams();
     const [coinDetails, setCoinDetails] = useState(null);
+    const [dayChartData, setDayChartData] = useState(null);
+    const [weekChartData, setWeekChartData] = useState(null);
+    const [yearChartData, setYearChartData] = useState(null);
+
+    const formatData = (data) => {
+        return data.map((el) => {
+            return {
+                t: el[0],
+                y: el[1].toFixed(2),
+            };
+        });
+    };
 
     useEffect(() => {
-        console.log(coinDetails);
+        let day = [];
+        let week = [];
+        let year = [];
         let request =
+            "https://api.coingecko.com/api/v3/coins/" +
+            id +
+            "/market_chart?vs_currency=usd&days=1";
+        fetch(request)
+            .then((response) => response.json())
+            .then((data) => setDayChartData(formatData(data.prices)))
+            .catch((error) => console.log(error));
+        request =
+            "https://api.coingecko.com/api/v3/coins/" +
+            id +
+            "/market_chart?vs_currency=usd&days=7";
+        fetch(request)
+            .then((response) => response.json())
+            .then((data) => setWeekChartData(formatData(data.prices)))
+            .catch((error) => console.log(error));
+        request =
+            "https://api.coingecko.com/api/v3/coins/" +
+            id +
+            "/market_chart?vs_currency=usd&days=365";
+        fetch(request)
+            .then((response) => response.json())
+            .then((data) => setYearChartData(formatData(data.prices)))
+            .catch((error) => console.log(error));
+
+        request =
             "https://api.coingecko.com/api/v3/coins/" +
             id +
             "?localization=false&developer_data=false&sparkline=false";
@@ -18,18 +58,18 @@ function Crypto() {
             .then((response) => response.json())
             .then((coinDetails) => {
                 setCoinDetails(coinDetails);
-                console.log("dans le zen ..");
-                console.log(coinDetails);
+                //console.log("dans le zen ..");
+                console.log("inside", coinDetails);
             })
             .catch((error) => console.log(error));
-        console.log(coinDetails);
+        console.log("outside", coinDetails);
     }, []);
 
     return (
         <>
             <div className="cryptoDetails">
                 {/* <h2>{id}</h2> */}
-                {coinDetails != null ? (
+                {coinDetails != null && yearChartData != null ? (
                     <>
                         <table>
                             <tbody>
@@ -84,11 +124,11 @@ function Crypto() {
                                     <td>
                                         Market Cap :
                                         <h5>
+                                            ${" "}
                                             {
                                                 coinDetails.market_data
                                                     .market_cap.usd
-                                            }{" "}
-                                            $
+                                            }
                                         </h5>
                                     </td>
                                     <td>
@@ -103,7 +143,14 @@ function Crypto() {
                                 </tr>
                             </tbody>
                         </table>
-
+                        <HistoryChart
+                            data={{
+                                day: dayChartData,
+                                week: weekChartData,
+                                year: yearChartData,
+                            }}
+                            name={coinDetails.name}
+                        />
                         <h4>About :</h4>
                         <p>{coinDetails.description.en}</p>
                     </>
