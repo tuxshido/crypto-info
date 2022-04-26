@@ -18,7 +18,7 @@ const Coin = ({
             <div
                 className="coin-row"
                 onClick={() => {
-                    navigate(`/crypto/${id}`);
+                    navigate(`/#/crypto/${id}`);
                 }}>
                 <div className="coin">
                     <img src={image} alt="crypto" />
