@@ -9,14 +9,14 @@ import Footer from "./components/Footer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-	<BrowserRouter>
-		<NavBar />
-		<Routes>
-			<Route path="/" element={<App />} />
-			<Route path="crypto" element={<Crypto />}>
-				<Route path=":id" element={<Crypto />} />
-			</Route>
-		</Routes>
-		<Footer />
-	</BrowserRouter>
+    <BrowserRouter>
+        <NavBar />
+        <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="crypto" element={<Crypto />}>
+                <Route path=":id" element={<Crypto />} />
+            </Route>
+        </Routes>
+        <Footer />
+    </BrowserRouter>
 );
