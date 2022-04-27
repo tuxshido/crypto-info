@@ -1,6 +1,6 @@
 {
   "name": "crypto-info-v1",
-  "homepage": "https://tuxshido.github.io/crypto-info",
+  "homepage": "https://tuxshido.github.io/crypto-info/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
