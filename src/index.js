@@ -13,7 +13,7 @@ root.render(
         <NavBar />
         <Routes>
             <Route path="/" element={<App />} />
-            <Route path="#/crypto" element={<Crypto />}>
+            <Route path="crypto" element={<Crypto />}>
                 <Route path=":id" element={<Crypto />} />
             </Route>
         </Routes>
